@@ -1,0 +1,8 @@
+{
+  "name": "xlsx-reader",
+  "label": "XLSX Reader",
+  "version": 1,
+  "theme": "#217346",
+  "description": "Read binary Excel files (.xlsx/.xls) and return their rows as bundles",
+  "language": "en"
+}

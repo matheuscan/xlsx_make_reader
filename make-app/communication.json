@@ -1,0 +1,16 @@
+{
+  "baseUrl": "{{connection.baseUrl}}",
+  "headers": {
+    "X-API-Key": "{{connection.apiKey}}"
+  },
+  "response": {
+    "error": {
+      "message": "[{{statusCode}}] {{ifempty(body.detail, 'Unexpected error')}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.`X-API-Key`"
+    ]
+  }
+}

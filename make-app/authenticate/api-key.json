@@ -1,0 +1,46 @@
+{
+  "name": "api-key",
+  "label": "API Key",
+  "type": "basic",
+  "parameters": [
+    {
+      "name": "baseUrl",
+      "type": "url",
+      "label": "Base URL",
+      "required": true,
+      "help": "Public HTTPS URL of the API, e.g. https://api.example.com"
+    },
+    {
+      "name": "apiKey",
+      "type": "password",
+      "label": "API Key",
+      "required": true
+    }
+  ],
+  "communication": {
+    "url": "{{parameters.baseUrl}}/api/v1/verify",
+    "method": "get",
+    "headers": {
+      "X-API-Key": "{{parameters.apiKey}}"
+    },
+    "response": {
+      "valid": "{{statusCode === 200}}",
+      "error": {
+        "message": "[{{statusCode}}] Invalid API key or Base URL"
+      },
+      "data": {
+        "apiKey": "{{parameters.apiKey}}",
+        "baseUrl": "{{parameters.baseUrl}}"
+      },
+      "metadata": {
+        "type": "text",
+        "value": "{{parameters.baseUrl}}"
+      }
+    },
+    "log": {
+      "sanitize": [
+        "request.headers.`X-API-Key`"
+      ]
+    }
+  }
+}

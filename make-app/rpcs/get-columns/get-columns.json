@@ -1,0 +1,60 @@
+{
+  "name": "get-columns",
+  "label": "Get columns from a sample file",
+  "description": "Reads a sample Excel file and generates the module output fields dynamically from its headers",
+  "connection": "api-key",
+  "communication": {
+    "url": "/api/v1/excel-columns",
+    "method": "post",
+    "type": "multipart/form-data",
+    "qs": {
+      "sheet": "{{parameters.sheet}}",
+      "header_row": "{{parameters.header_row}}"
+    },
+    "body": {
+      "file": {
+        "value": "{{parameters.file_data}}",
+        "options": {
+          "filename": "{{parameters.file_name}}"
+        }
+      }
+    },
+    "response": {
+      "iterate": "{{body.columns}}",
+      "output": {
+        "name": "{{item}}",
+        "label": "{{item}}",
+        "type": "text"
+      }
+    }
+  },
+  "parameters": [
+    {
+      "name": "file_name",
+      "type": "text",
+      "label": "Sample file name",
+      "required": true,
+      "semantic": "file:name"
+    },
+    {
+      "name": "file_data",
+      "type": "buffer",
+      "label": "Sample file data",
+      "required": true,
+      "semantic": "file:data"
+    },
+    {
+      "name": "sheet",
+      "type": "text",
+      "label": "Sheet",
+      "help": "Name or 0-based index of the sheet. Leave empty to use the first sheet."
+    },
+    {
+      "name": "header_row",
+      "type": "uinteger",
+      "label": "Header row",
+      "help": "0-based index of the row used as header.",
+      "default": 0
+    }
+  ]
+}
